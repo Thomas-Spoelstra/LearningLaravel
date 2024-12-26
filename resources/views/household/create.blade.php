@@ -19,7 +19,7 @@
             <input type="text" name="description" placeholder="description">
             <br>
             
-            <label for="size">Name</label>
+            <label for="size">Size</label>
             <input type="text" name="size" placeholder="size">
             <br>
 
