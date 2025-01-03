@@ -16,7 +16,7 @@ class HouseHoldController extends Controller
         return view('household.create');
     }
 
-    public function update(Request $request) {
+    public function store(Request $request) {
         $data = $request->validate([
             'name' => 'required',  
             'size' => 'required|numeric',
@@ -25,6 +25,25 @@ class HouseHoldController extends Controller
 
         $newHousehold = HouseHold::create($data);
 
-        return redirect(route('household.update'));
+        return redirect(route('household.store'));
+    }
+
+    public function edit(HouseHold $household) {
+        return view('household.edit', ['household'=> $household]);
+    }
+
+    public function update(HouseHold $household, Request $request) {
+        $data = $request->validate([
+            'name'=> 'required',
+            'size'=> 'required|numeric',
+            'description'=> 'nullable'
+        ]);
+        $household ->update($data);
+        return redirect(route('household.index'))->with('success','Household succesfully updated!');
+    }
+
+    public function delete(HouseHold $household, Request $request) {
+        HouseHold::destroy($household->id);
+        return redirect(route('household.index'));
     }
 }
